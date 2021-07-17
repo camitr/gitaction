@@ -11,7 +11,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Login to DockerHub Registry
-        run: docker login -u ${{ secrets.REGISTRY_USERNAME }} -p ${{ secrets.REGISTRY_PASSWORD }} rbi-docker.us-artifactory.cicd.cloud.fpdev.io
+        run: docker login -u amit.shrivastava@forcepoint.com -p AKCp8jQwmF6d9R89MBYUZhGxANtu1Vr6c5gya8tzyAUUVGai5tgFXmpbt9LdFYuRx5Tw7nNVd rbi-docker.us-artifactory.cicd.cloud.fpdev.io
       - name: Create Kubeconfig
         run: |
           mkdir ${HOME}/.kube
