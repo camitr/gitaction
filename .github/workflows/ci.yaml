@@ -1,18 +1,21 @@
-name: Docker Image CI
-
+name: test pipeline
 on:
   push:
-    branches: [ $default-branch ]
-  pull_request:
-    branches: [ $default-branch ]
+    branches: [ main ]
 
 jobs:
-
-  build:
-
+  deploy:
+    name: Deploy to kubernetes
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create Kubeconfig
+        run: |
+          mkdir ${HOME}/.kube
+          echo ${{ secrets.KUBE_CONFIG }} | base64 -d > ${HOME}/.kube/config
+          cat ${HOME}/.kube/config
+      - name: Use Context
+        run: kubectl config use-context octobay-api
+      - name: Deploy to K8s
+        run: kubectl apply -f k8s/
