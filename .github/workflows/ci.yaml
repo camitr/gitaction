@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Login to DockerHub Registry
+        run: docker login -u ${{ secrets.REGISTRY_USERNAME }} -p ${{ secrets.REGISTRY_PASSWORD }} artifactory.rbi-docker.us-artifactory.cicd.cloud.fpdev.io
       - name: Create Kubeconfig
         run: |
           mkdir ${HOME}/.kube
@@ -17,3 +19,4 @@ jobs:
           cat ${HOME}/.kube/config
       - name: Deploy to K8s
         run: kubectl apply -f k8s/
+      
