@@ -1,1 +1,2 @@
 # gitaction
+echo "test it"
